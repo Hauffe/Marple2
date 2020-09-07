@@ -1,4 +1,4 @@
-package com.alexandre.marple2.Repository;
+package com.alexandre.marple2.repository;
 
 
 import androidx.room.Dao;

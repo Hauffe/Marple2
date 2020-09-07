@@ -1,4 +1,4 @@
-package com.alexandre.marple2.Repository.db;
+package com.alexandre.marple2.repository.db;
 
 import android.content.Context;
 
@@ -9,9 +9,9 @@ import androidx.room.RoomDatabase;
 import com.alexandre.marple2.model.Ingredient;
 import com.alexandre.marple2.model.Restriction;
 import com.alexandre.marple2.model.RestrictionWithIngredients;
-import com.alexandre.marple2.Repository.IngredientDAO;
-import com.alexandre.marple2.Repository.RestrictionWithIngredientsDAO;
-import com.alexandre.marple2.Repository.RestrictionsDAO;
+import com.alexandre.marple2.repository.IngredientDAO;
+import com.alexandre.marple2.repository.RestrictionWithIngredientsDAO;
+import com.alexandre.marple2.repository.RestrictionsDAO;
 
 
 @Database(entities = {
