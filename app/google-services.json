@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "348358607845",
+    "firebase_url": "https://marple-3161a.firebaseio.com",
+    "project_id": "marple-3161a",
+    "storage_bucket": "marple-3161a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348358607845:android:0329b02b48503da0d5a50c",
+        "android_client_info": {
+          "package_name": "com.alexandre.marple2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348358607845-fl4icsvdijsuj0k6mk6cci0squ9hgo5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alexandre.marple2",
+            "certificate_hash": "6d794edd491c2e79e09d0eb745210fd52ee86138"
+          }
+        },
+        {
+          "client_id": "348358607845-i3icaad9f7996um736h91fnn10sisoji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8AGJGHri_Xui-E0Yc3UNl4_9l3mHsVw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348358607845-i3icaad9f7996um736h91fnn10sisoji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

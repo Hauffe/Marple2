@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Marple2</string>
+    <string name="txt_message"></string>
+
+    <!--menu -->
+    <string name="menu_restrictions">Restrições</string>
+    <string name="CameraActivity">CameraActivity</string>
+    <string name="MainActivity">MainActivity</string>
+    <string name="CameraActivity_Name">Camera Activity</string>
+    <string name="unexpectedResult">Got unexpected permission result:</string>
+</resources>
