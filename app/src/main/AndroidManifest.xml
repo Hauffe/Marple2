@@ -16,13 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.RestrictionActivity"
+            android:label="@string/RestrictionActivity_Name"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.CameraActivity"
             android:label="@string/CameraActivity_Name"
             android:parentActivityName=".activities.MainActivity" />
     </application>
-
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

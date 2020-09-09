@@ -17,12 +17,16 @@ public class Restriction {
     @ColumnInfo(name = "name")
     private String name;
 
+    @ColumnInfo(name = "enable")
+    private boolean enable;
+
     @Ignore
     private List<Ingredient> ingredients;
 
-    public Restriction(Long id, String name) {
+    public Restriction(Long id, String name, boolean enable) {
         this.id = id;
         this.name = name;
+        this.enable = enable;
         ingredients = new ArrayList<>();
     }
 
@@ -52,6 +56,14 @@ public class Restriction {
         this.name = name;
     }
 
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
@@ -59,4 +71,5 @@ public class Restriction {
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
 }

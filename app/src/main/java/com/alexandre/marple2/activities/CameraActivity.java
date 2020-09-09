@@ -12,26 +12,19 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.alexandre.marple2.R;
-import com.alexandre.marple2.model.Ingredient;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
 
     SurfaceView mCameraView;
-    TextView mTextView;
+    TextView text_view;
+    TextView text_unapproved;
     CameraSource mCameraSource;
 
     private static final int requestPermissionID = 101;
@@ -39,10 +32,11 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera);
 
         mCameraView = findViewById(R.id.surfaceView);
-        mTextView = findViewById(R.id.text_view);
+        text_view = findViewById(R.id.text_view);
+        text_unapproved = findViewById(R.id.text_unapproved);
 
         startCameraSource();
     }
@@ -80,7 +74,7 @@ public class CameraActivity extends AppCompatActivity {
             //Initialize camerasource to use high resolution and set Autofocus on.
             mCameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(1280, 1024)
+                    .setRequestedPreviewSize(1280, 864)
                     .setAutoFocusEnabled(true)
                     .setRequestedFps(2.0f)
                     .build();
@@ -133,16 +127,21 @@ public class CameraActivity extends AppCompatActivity {
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
                     if (items.size() != 0 ){
 
-                        mTextView.post(new Runnable() {
+                        text_view.post(new Runnable() {
                             @Override
                             public void run() {
-                                StringBuilder stringBuilder = new StringBuilder();
+                                StringBuilder text_view_str = new StringBuilder();
+                                StringBuilder text_unapproved_str = new StringBuilder();
                                 for(int i=0;i<items.size();i++){
                                     TextBlock item = items.valueAt(i);
-                                    stringBuilder.append(item.getValue());
-                                    stringBuilder.append("\n");
+                                    if((item.getValue()).contains("CARBONATED")){
+                                        text_unapproved_str.append("CARBONATED");
+                                    }
+                                    text_view_str.append(item.getValue());
+                                    text_view_str.append("\n");
                                 }
-                                mTextView.setText(stringBuilder.toString());
+                                text_view.setText(text_view_str.toString());
+                                text_unapproved.setText(text_unapproved_str.toString());
                             }
                         });
                     }

@@ -35,4 +35,5 @@ public interface RestrictionWithIngredientsDAO {
             "ON ingredient.id=restriction_has_ingredients.ingredientId " +
             "WHERE restriction_has_ingredients.restrictionId=:restrictionId")
     List<Ingredient> getIngredientsForRestrictions(final Long restrictionId);
+
 }
