@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 
 import com.alexandre.marple2.model.Restriction;
@@ -31,4 +32,7 @@ public interface RestrictionsDAO {
 
     @Delete
     void delete(Restriction restrictions);
+
+    @Update
+    int update(Restriction restriction);
 }

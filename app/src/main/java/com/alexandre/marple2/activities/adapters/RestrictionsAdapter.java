@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandre.marple2.R;
 import com.alexandre.marple2.model.Restriction;
+import com.alexandre.marple2.repository.RestrictionsDAO;
+import com.alexandre.marple2.repository.db.AppDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +23,13 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
 
     private List<Restriction> restrictions;
     private Context context;
+    private AppDatabase db;
 
 
     public RestrictionsAdapter(Context context, List<Restriction> restrictions) {
         this.context = context;
         this.restrictions = restrictions;
+        db = AppDatabase.getInstance(context);
     }
 
     @NonNull
@@ -62,20 +66,34 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
 
         public RestrictionHolder(@NonNull View itemView) {
             super(itemView);
-
             restriction_name = itemView.findViewById(R.id.restriction_name);
             restriction_description = itemView.findViewById(R.id.restriction_description);
-
             restriction_on_of_switch = itemView.findViewById(R.id.on_of_switch);
+            restriction_on_of_switch.setOnClickListener(
 
-            restriction_on_of_switch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(RestrictionsAdapter.this.context,
-                            "what?",
-                            Toast.LENGTH_LONG).show();
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Restriction restriction = getRestrictionByName(restriction_name.getText().toString());
+                            restriction.setEnable(restriction_on_of_switch.isChecked());
+                            db.restrictionDAO().update(restriction);
+
+                            Toast.makeText(RestrictionsAdapter.this.context,
+                                    restriction_on_of_switch.isChecked() ? "Enabled" : "Disabled",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+            );
+        }
+        public Restriction getRestrictionByName(String name) {
+            Restriction found_restriction = new Restriction();
+            for(Restriction restriction : restrictions){
+                if (restriction.getName().compareToIgnoreCase(name) == 0 ){
+                    found_restriction = restriction;
                 }
-            });
+            }
+            return found_restriction;
         }
     }
 }
