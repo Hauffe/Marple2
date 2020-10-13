@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,11 @@ public class RestrictionActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+    }
+
+    public void add_restriction(View view) {
+        Intent intent = new Intent(this, NewRestrictionActivity.class);
+        startActivity(intent);
     }
 
     public void download_all(View view) {
@@ -139,4 +145,5 @@ public class RestrictionActivity extends AppCompatActivity {
         }
         return restrictions;
     }
+
 }

@@ -8,5 +8,11 @@
     <string name="MainActivity">MainActivity</string>
     <string name="CameraActivity_Name">Checar</string>
     <string name="RestrictionActivity_Name">Restrições</string>
+    <string name="NewRestrictionActivity_Name">Nova Restrição</string>
     <string name="unexpectedResult">Got unexpected permission result:</string>
+
+    <!--fields -->
+    <string name="text_name">Nome: </string>
+    <string name="text_hint">Nome da restrição </string>
+    <string name="text_description">Descrição: </string>
 </resources>
