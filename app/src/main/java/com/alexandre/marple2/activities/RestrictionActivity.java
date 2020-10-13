@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.alexandre.marple2.R;
 import com.alexandre.marple2.activities.adapters.RestrictionsAdapter;
@@ -101,6 +102,9 @@ public class RestrictionActivity extends AppCompatActivity {
                 verifyRestrictionWithIngredient(restriction.getId(), ingredient.getId());
             }
         }
+        Toast.makeText(this,
+                "Restrições baixadas",
+                Toast.LENGTH_SHORT).show();
     }
 
     public Restriction verifyRestriction(Restriction restriction){

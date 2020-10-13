@@ -14,5 +14,6 @@
     <!--fields -->
     <string name="text_name">Nome: </string>
     <string name="text_hint">Nome da restrição </string>
+    <string name="ingredients_text_hint">Ex: ingrediente1, ingrediente2, ingrediente3...</string>
     <string name="text_description">Descrição: </string>
 </resources>
