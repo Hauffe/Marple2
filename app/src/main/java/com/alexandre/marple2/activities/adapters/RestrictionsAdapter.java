@@ -1,6 +1,8 @@
 package com.alexandre.marple2.activities.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexandre.marple2.R;
+import com.alexandre.marple2.activities.EditRestrictionActivity;
+import com.alexandre.marple2.activities.Interfaces.ItemClickListener;
+import com.alexandre.marple2.activities.NewRestrictionActivity;
 import com.alexandre.marple2.model.Restriction;
 import com.alexandre.marple2.repository.RestrictionsDAO;
 import com.alexandre.marple2.repository.db.AppDatabase;
@@ -21,6 +26,7 @@ import java.util.List;
 
 public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapter.RestrictionHolder> {
 
+    private static ItemClickListener itemClickListener;
     private List<Restriction> restrictions;
     private Context context;
     private AppDatabase db;
@@ -30,6 +36,11 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
         this.context = context;
         this.restrictions = restrictions;
         db = AppDatabase.getInstance(context);
+    }
+
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -47,7 +58,7 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
         Restriction restriction = restrictions.get(position);
 
         restrictionHolder.restriction_name.setText(restriction.getName());
-        restrictionHolder.restriction_description.setText(restriction.getIngredients().toString());
+        restrictionHolder.restriction_description.setText(restriction.getIngredientsString());
         restrictionHolder.restriction_on_of_switch.setChecked(restriction.isEnable());
         restrictionHolder.position = position;
     }
@@ -57,7 +68,7 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
         return restrictions.size();
     }
 
-    public class RestrictionHolder extends RecyclerView.ViewHolder{
+    public class RestrictionHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView restriction_name;
         TextView restriction_description;
@@ -66,6 +77,9 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
 
         public RestrictionHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(this);
+
             restriction_name = itemView.findViewById(R.id.restriction_name);
             restriction_description = itemView.findViewById(R.id.restriction_description);
             restriction_on_of_switch = itemView.findViewById(R.id.on_of_switch);
@@ -85,6 +99,7 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
                         }
                     }
             );
+
         }
         public Restriction getRestrictionByName(String name) {
             Restriction found_restriction = new Restriction();
@@ -94,6 +109,13 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
                 }
             }
             return found_restriction;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(itemClickListener != null) {
+                itemClickListener.onRestrictionClick(getAdapterPosition(), restrictions.get(position));
+            }
         }
     }
 }

@@ -6,6 +6,7 @@
     <color name="headerColor">#ffffff</color>
     <color name="tabIndicatorColor">#ffff8d</color>
     <color name="notAllowedText">#E4180C</color>
+    <color name="deleteBg">#FFC16D68</color>
 
     <color name="List_color">#4b4b4b</color>
 </resources>

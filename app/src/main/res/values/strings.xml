@@ -9,6 +9,7 @@
     <string name="CameraActivity_Name">Checar</string>
     <string name="RestrictionActivity_Name">Restrições</string>
     <string name="NewRestrictionActivity_Name">Nova Restrição</string>
+    <string name="EditRestrictionActivity_Name">Editar Restrição</string>
     <string name="unexpectedResult">Got unexpected permission result:</string>
 
     <!--fields -->
@@ -16,4 +17,9 @@
     <string name="text_hint">Nome da restrição </string>
     <string name="ingredients_text_hint">Ex: ingrediente1, ingrediente2, ingrediente3...</string>
     <string name="text_description">Descrição: </string>
+    <string name="update">Atualizar</string>
+    <string name="delete">Deletar</string>
+    <string name="save">Salvar</string>
+
+
 </resources>

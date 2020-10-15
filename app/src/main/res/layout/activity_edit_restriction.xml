@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.NewRestrictionActivity">
-
+    tools:context=".activities.EditRestrictionActivity">
 
     <EditText
         android:id="@+id/restricionNameTxt"
@@ -35,16 +34,33 @@
         app:layout_constraintTop_toBottomOf="@+id/restricionNameTxt" />
 
     <Button
-        android:id="@+id/saveRestrictionBtn"
+        android:id="@+id/updateRestrictionBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginEnd="76dp"
         android:background="@drawable/roundedbutton"
+        android:onClick="update_restriction"
+        android:text="@string/update"
         android:textColor="@color/cardview_light_background"
-        android:onClick="save_restriction"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteRestrictionBtn"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientsText" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredientsText"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <Button
+        android:id="@+id/deleteRestrictionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:background="@drawable/roundedbuttonred"
+        android:onClick="delete_restriction"
+        android:text="@string/delete"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredientsText"
+        app:layout_constraintVertical_bias="0.622" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "restriction")
-public class Restriction {
+public class Restriction implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
@@ -72,4 +73,19 @@ public class Restriction {
         this.ingredients = ingredients;
     }
 
+
+    public String getIngredientsString(){
+        String string = ingredients.toString();
+        return string.substring(1, string.length()-1);
+    }
+
+    @Override
+    public String toString() {
+        return "Restriction{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", enable=" + enable +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 }

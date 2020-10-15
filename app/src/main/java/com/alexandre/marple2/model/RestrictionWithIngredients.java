@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "restriction_has_ingredients",
         primaryKeys = { "restrictionId", "ingredientId" },
         foreignKeys = {
@@ -15,7 +17,7 @@ import androidx.room.ForeignKey;
                         parentColumns = "id",
                         childColumns = "ingredientId")
         })
-public class RestrictionWithIngredients {
+public class RestrictionWithIngredients implements Serializable {
 
     @NonNull
     public final Long restrictionId;

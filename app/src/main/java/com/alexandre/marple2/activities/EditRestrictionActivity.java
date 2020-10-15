@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alexandre.marple2.R;
-import com.alexandre.marple2.activities.adapters.RestrictionsAdapter;
 import com.alexandre.marple2.model.Ingredient;
 import com.alexandre.marple2.model.Restriction;
 import com.alexandre.marple2.model.RestrictionWithIngredients;
@@ -19,8 +18,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NewRestrictionActivity extends AppCompatActivity {
+public class EditRestrictionActivity extends AppCompatActivity {
 
+    private Restriction restriction;
     private TextView restriction_name_txt;
     private TextView ingredients_text;
     private AppDatabase db;
@@ -28,51 +28,72 @@ public class NewRestrictionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_restriction);
+        setContentView(R.layout.activity_edit_restriction);
 
         db = AppDatabase.getInstance(this);
+
+        restriction = (Restriction) getIntent().getSerializableExtra("restriction");
 
         restriction_name_txt = findViewById(R.id.restricionNameTxt);
         ingredients_text = findViewById(R.id.ingredientsText);
 
-
+        restriction_name_txt.setText(restriction.getName());
+        ingredients_text.setText(restriction.getIngredientsString());
     }
 
-    public void save_restriction(View view) {
-        Restriction restriction = new Restriction(restriction_name_txt.getText().toString());
-        restriction.setEnable(true);
-        List<String> ingredient_names = Arrays.asList(ingredients_text.getText().toString().split(", "));
-        List<Ingredient> ingredients = new ArrayList<>();
-        for(String ingName : ingredient_names){
-            ingredients.add(new Ingredient(ingName, null));
-        }
-        restriction.setIngredients(ingredients);
-        saveAllRestriction(restriction);
+    public void delete_restriction(View view) {
+        deleteRestriction(restriction);
 
         Toast.makeText(this,
-                "Restrição salva",
+                "Restrição deletada",
                 Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, RestrictionActivity.class);
         startActivity(intent);
     }
 
-    public void saveAllRestriction(Restriction restriction) {
-        restriction = verifyRestriction(restriction);
+    public void update_restriction(View view) {
+        List<String> ingredient_names = Arrays.asList(ingredients_text.getText().toString().split(", "));
+        List<Ingredient> ingredients = new ArrayList<>();
+        for(String ingName : ingredient_names){
+            ingredients.add(new Ingredient(ingName, null));
+        }
+        restriction.setIngredients(ingredients);
+        restriction.setName(restriction_name_txt.getText().toString());
+        updateAllRestriction(restriction);
+
+        Toast.makeText(this,
+                "Restrição atualizada",
+                Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, RestrictionActivity.class);
+        startActivity(intent);
+    }
+
+    public void updateAllRestriction(Restriction restriction) {
+        restriction = updateRestriction(restriction);
+        deleteRestrictionIngredients(restriction);
         for (Ingredient ingredient : restriction.getIngredients()) {
             ingredient = verifyIngredients(ingredient);
             verifyRestrictionWithIngredient(restriction.getId(), ingredient.getId());
         }
     }
 
+    public void deleteRestriction(Restriction restriction){
+            deleteRestrictionIngredients(restriction);
+            db.restrictionDAO().delete(restriction);
+    }
 
-    public Restriction verifyRestriction(Restriction restriction){
-        if(db.restrictionDAO().findByName(restriction.getName()) == null){
-            db.restrictionDAO().insertAll(restriction);
-            restriction.setId(db.restrictionDAO().findByName(restriction.getName()).getId());
+    public void deleteRestrictionIngredients(Restriction restriction){
+        List<Ingredient> ingredients = db.restrictionWithIngredientsDAO().getIngredientsForRestrictions(restriction.getId());
+        for(Ingredient ingredient : ingredients){
+            db.restrictionWithIngredientsDAO().delete(new RestrictionWithIngredients(restriction.getId(), ingredient.getId()));
+        }
+    }
+
+    public Restriction updateRestriction(Restriction restriction){
+            db.restrictionDAO().update(restriction);
             return restriction;
-        }else
-            return db.restrictionDAO().findByName(restriction.getName());
     }
 
     public Ingredient verifyIngredients(Ingredient ingredient) {
@@ -98,4 +119,5 @@ public class NewRestrictionActivity extends AppCompatActivity {
                     .insert(new RestrictionWithIngredients(restrictionId, ingredientId));
         }
     }
+
 }

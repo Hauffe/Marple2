@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.alexandre.marple2.R;
+import com.alexandre.marple2.activities.Interfaces.ItemClickListener;
 import com.alexandre.marple2.activities.adapters.RestrictionsAdapter;
 import com.alexandre.marple2.model.Ingredient;
 import com.alexandre.marple2.model.Restriction;
@@ -54,9 +56,24 @@ public class RestrictionActivity extends AppCompatActivity {
         adapter = new RestrictionsAdapter(this, restrictions);
         recyclerView.setAdapter(adapter);
 
+
+        adapter.setOnItemClickListener(new ItemClickListener() {
+            @Override
+            public void onRestrictionClick(int position, Restriction restriction) {
+                Log.d("Restriction", restriction.toString());
+                edit_restriction(restriction);
+            }
+        });
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
+    }
+
+    public void edit_restriction(Restriction restriction) {
+        Intent intent = new Intent(this, EditRestrictionActivity.class);
+        intent.putExtra("restriction", restriction);
+        startActivity(intent);
     }
 
     public void add_restriction(View view) {
