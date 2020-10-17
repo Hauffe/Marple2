@@ -58,7 +58,7 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
         Restriction restriction = restrictions.get(position);
 
         restrictionHolder.restriction_name.setText(restriction.getName());
-        restrictionHolder.restriction_description.setText(restriction.getIngredientsString());
+        restrictionHolder.restriction_description.setText(restrictionDescription(restriction));
         restrictionHolder.restriction_on_of_switch.setChecked(restriction.isEnable());
         restrictionHolder.position = position;
     }
@@ -66,6 +66,17 @@ public class RestrictionsAdapter extends RecyclerView.Adapter<RestrictionsAdapte
     @Override
     public int getItemCount() {
         return restrictions.size();
+    }
+
+    public String restrictionDescription(Restriction restriction){
+        String ingredients = restriction.getIngredientsString();
+        if(ingredients.length()>80){
+            return ingredients.substring(1, 80) + " [...]";
+        }else if("".equals(ingredients)){
+            return "Nenhum ingrediente cadastrado";
+        }else{
+            return ingredients;
+        }
     }
 
     public class RestrictionHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

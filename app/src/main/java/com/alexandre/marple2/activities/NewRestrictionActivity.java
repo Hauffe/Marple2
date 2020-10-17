@@ -43,15 +43,19 @@ public class NewRestrictionActivity extends AppCompatActivity {
         restriction.setEnable(true);
         List<String> ingredient_names = Arrays.asList(ingredients_text.getText().toString().split(", "));
         List<Ingredient> ingredients = new ArrayList<>();
-        for(String ingName : ingredient_names){
-            ingredients.add(new Ingredient(ingName, null));
+        if(!ingredient_names.isEmpty()){
+            for(String ingName : ingredient_names){
+                ingredients.add(new Ingredient(ingName, null));
+            }
         }
-        restriction.setIngredients(ingredients);
-        saveAllRestriction(restriction);
+        if(!restriction.getName().equals("")){
+            restriction.setIngredients(ingredients);
+            saveAllRestriction(restriction);
 
-        Toast.makeText(this,
-                "Restrição salva",
-                Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "Restrição salva",
+                    Toast.LENGTH_SHORT).show();
+        }
 
         Intent intent = new Intent(this, RestrictionActivity.class);
         startActivity(intent);

@@ -13,19 +13,26 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 import com.alexandre.marple2.R;
+import com.alexandre.marple2.model.Ingredient;
+import com.alexandre.marple2.repository.db.AppDatabase;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
 
+    private AppDatabase db;
+    List<String> allIngredients;
     SurfaceView mCameraView;
     TextView text_view;
     TextView text_unapproved;
     CameraSource mCameraSource;
+    List<String> sentences;
 
     private static final int requestPermissionID = 101;
 
@@ -34,11 +41,18 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        db = AppDatabase.getInstance(this);
         mCameraView = findViewById(R.id.surfaceView);
         text_view = findViewById(R.id.text_view);
         text_unapproved = findViewById(R.id.text_unapproved);
 
         startCameraSource();
+        allIngredients = getIngredients();
+        sentences = new ArrayList<>();
+        sentences.add("pode conter ");
+        sentences.add("sem ");
+        sentences.add("não possui ");
+        Log.d("ingredients", String.valueOf(allIngredients));
     }
 
     @Override
@@ -61,6 +75,10 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    public List<String> getIngredients() {
+        return db.ingredientDAO().getAllEnabled();
+    }
+
 
     private void startCameraSource() {
 
@@ -74,7 +92,7 @@ public class CameraActivity extends AppCompatActivity {
             //Initialize camerasource to use high resolution and set Autofocus on.
             mCameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(1280, 864)
+                    .setRequestedPreviewSize(768, 768)
                     .setAutoFocusEnabled(true)
                     .setRequestedFps(2.0f)
                     .build();
@@ -134,8 +152,18 @@ public class CameraActivity extends AppCompatActivity {
                                 StringBuilder text_unapproved_str = new StringBuilder();
                                 for(int i=0;i<items.size();i++){
                                     TextBlock item = items.valueAt(i);
-                                    if((item.getValue()).contains("CARBONATED")){
-                                        text_unapproved_str.append("CARBONATED");
+                                    String textBlock = item.getValue().toLowerCase();
+                                    if(!allIngredients.isEmpty()) {
+                                        for (String restr : allIngredients) {
+                                            String restrLower = restr.toLowerCase();
+                                            if (textBlock.contains(restrLower)) {
+                                                for (String sentence : sentences)
+                                                    if (!textBlock.contains(sentence + restrLower)) {
+                                                        text_unapproved_str.append(restrLower);
+                                                        break;
+                                                    }
+                                            }
+                                        }
                                     }
                                     text_view_str.append(item.getValue());
                                     text_view_str.append("\n");

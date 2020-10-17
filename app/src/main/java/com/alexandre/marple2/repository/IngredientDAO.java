@@ -15,6 +15,12 @@ public interface IngredientDAO {
     @Query("SELECT * FROM ingredient")
     List<Ingredient> getAll();
 
+    @Query(value = "SELECT i.name FROM ingredient i " +
+            "INNER JOIN restriction_has_ingredients ri ON i.id=ri.ingredientId " +
+            "INNER JOIN restriction r ON r.id=ri.restrictionId " +
+            "WHERE r.enable=1")
+            List<String> getAllEnabled();
+
     @Query("SELECT * FROM ingredient WHERE id IN (:ingredientIds)")
     List<Ingredient> loadAllByIds(int[] ingredientIds);
 

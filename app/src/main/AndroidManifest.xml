@@ -19,19 +19,19 @@
         <activity
             android:name=".activities.EditRestrictionActivity"
             android:label="@string/EditRestrictionActivity_Name"
-            android:parentActivityName=".activities.RestrictionActivity" />
+            android:parentActivityName=".activities.RestrictionActivity"/>
         <activity
             android:name=".activities.NewRestrictionActivity"
             android:label="@string/NewRestrictionActivity_Name"
-            android:parentActivityName=".activities.RestrictionActivity" />
+            android:parentActivityName=".activities.RestrictionActivity"/>
         <activity
             android:name=".activities.RestrictionActivity"
             android:label="@string/RestrictionActivity_Name"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.CameraActivity"
             android:label="@string/CameraActivity_Name"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"/>
     </application>
 
 
