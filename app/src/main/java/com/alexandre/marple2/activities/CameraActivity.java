@@ -22,6 +22,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class CameraActivity extends AppCompatActivity {
     TextView text_unapproved;
     CameraSource mCameraSource;
     List<String> sentences;
+    public final String SLASH = " - ";
 
     private static final int requestPermissionID = 101;
 
@@ -92,7 +94,7 @@ public class CameraActivity extends AppCompatActivity {
             //Initialize camerasource to use high resolution and set Autofocus on.
             mCameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
                     .setFacing(CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(768, 768)
+                    .setRequestedPreviewSize(1280, 1024)
                     .setAutoFocusEnabled(true)
                     .setRequestedFps(2.0f)
                     .build();
@@ -143,13 +145,18 @@ public class CameraActivity extends AppCompatActivity {
                 @Override
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
+
+
                     if (items.size() != 0 ){
 
                         text_view.post(new Runnable() {
+
+                        StringBuilder text_view_str = new StringBuilder();
+                        StringBuilder text_unapproved_str = new StringBuilder();
+                        String actual_text = text_unapproved.getText().toString();
+
                             @Override
                             public void run() {
-                                StringBuilder text_view_str = new StringBuilder();
-                                StringBuilder text_unapproved_str = new StringBuilder();
                                 for(int i=0;i<items.size();i++){
                                     TextBlock item = items.valueAt(i);
                                     String textBlock = item.getValue().toLowerCase();
@@ -159,8 +166,8 @@ public class CameraActivity extends AppCompatActivity {
                                             if (textBlock.contains(restrLower)) {
                                                 for (String sentence : sentences)
                                                     if (!textBlock.contains(sentence + restrLower)) {
-                                                        text_unapproved_str.append(restrLower);
-                                                        break;
+                                                            setUnapprovedText(restrLower);
+                                                            break;
                                                     }
                                             }
                                         }
@@ -168,8 +175,12 @@ public class CameraActivity extends AppCompatActivity {
                                     text_view_str.append(item.getValue());
                                     text_view_str.append("\n");
                                 }
-                                text_view.setText(text_view_str.toString());
-                                text_unapproved.setText(text_unapproved_str.toString());
+                                    text_view.setText(text_view_str.toString());
+                            }
+
+                            public void setUnapprovedText(String text){
+                                    text_unapproved_str.append(text + SLASH);
+                                    text_unapproved.setText(text_unapproved_str.toString());
                             }
                         });
                     }
