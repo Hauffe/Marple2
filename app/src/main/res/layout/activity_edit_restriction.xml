@@ -34,33 +34,33 @@
         app:layout_constraintTop_toBottomOf="@+id/restricionNameTxt" />
 
     <Button
-        android:id="@+id/updateRestrictionBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
-        android:background="@drawable/roundedbutton"
-        android:onClick="update_restriction"
-        android:text="@string/update"
-        android:textColor="@color/cardview_light_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteRestrictionBtn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientsText"
-        app:layout_constraintVertical_bias="0.622" />
-
-    <Button
         android:id="@+id/deleteRestrictionBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
+        android:layout_width="324dp"
+        android:layout_height="47dp"
         android:background="@drawable/roundedbuttonred"
         android:onClick="delete_restriction"
         android:text="@string/delete"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateRestrictionBtn"
+        app:layout_constraintVertical_bias="0.337" />
+
+    <Button
+        android:id="@+id/updateRestrictionBtn"
+        android:layout_width="324dp"
+        android:layout_height="47dp"
+        android:background="@drawable/roundedbutton"
+        android:onClick="update_restriction"
+        android:text="@string/update"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingredientsText"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintVertical_bias="0.598" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
