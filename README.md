@@ -22,4 +22,6 @@ Minority groups with dietary restrictions, allergies, intolerances, and lifestyl
 
 ## Marple back app to manage restrictions for all users:
 
+Marple back repo: https://github.com/Hauffe/Marple_back
+
 ![image](https://user-images.githubusercontent.com/13802848/230678023-965d8b93-2b06-4789-bfaa-b63761e2b8bf.png)
